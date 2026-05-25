@@ -5,12 +5,12 @@
 	let mobileMenuOpen = $state(false);
 
 	const navLinks = [
-		{ href: '#about', label: 'About' },
-		{ href: '#career', label: 'Career' },
-		{ href: '#projects', label: 'Projects' },
-		{ href: '#tech-stack', label: 'Tech Stack' },
-		{ href: '#resume', label: 'Resume' },
-		{ href: '#contact', label: 'Contact' }
+		{ href: '/#about', label: 'About' },
+		{ href: '/#career', label: 'Career' },
+		{ href: '/#projects', label: 'Projects' },
+		{ href: '/#tech-stack', label: 'Tech Stack' },
+		{ href: '/#resume', label: 'Resume' },
+		{ href: '/#contact', label: 'Contact' }
 	];
 
 	onMount(() => {
