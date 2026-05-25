@@ -23,7 +23,7 @@
 	--font-mono: 'JetBrains Mono', monospace;
 	
 	/* Spacing */
-	--section-padding: clamp(4rem, 10vw, 8rem);
+	--section-padding: clamp(3rem, 5vw, 5rem);
 	--container-width: min(1200px, 90vw);
 	
 	/* Effects */

@@ -4,7 +4,7 @@
 	import About from '$lib/components/About.svelte';
 	import Career from '$lib/components/Career.svelte';
 	import Projects from '$lib/components/Projects.svelte';
-	import Blog from '$lib/components/Blog.svelte';
+	import TechStack from '$lib/components/TechStack.svelte';
 	import Resume from '$lib/components/Resume.svelte';
 	import Contact from '$lib/components/Contact.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -12,7 +12,7 @@
 
 <svelte:head>
 	<title>Mir Tanim Ahmed | Backend Developer</title>
-	<meta name="description" content="Backend Developer specializing in Node.js, TypeScript, and Python. Building scalable APIs and exploring ML/NLP." />
+	<meta name="description" content="Backend Engineer specializing in ASP.NET Core, Node.js, and Python. Building production-grade APIs, real-time systems, and full-stack products." />
 	<meta name="keywords" content="Backend Developer, Node.js, TypeScript, Python, API, Full-Stack, Software Engineer" />
 	<meta name="author" content="Mir Tanim Ahmed" />
 	<meta property="og:title" content="Mir Tanim Ahmed | Backend Developer" />
@@ -29,7 +29,7 @@
 	<About />
 	<Career />
 	<Projects />
-	<Blog />
+	<TechStack />
 	<Resume />
 	<Contact />
 </main>

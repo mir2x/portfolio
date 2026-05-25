@@ -1,33 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	let typedText = $state('');
-	const roles = ['Backend Developer', 'Full-Stack Developer', 'ML Enthusiast'];
-	let currentRoleIndex = $state(0);
-	let isDeleting = $state(false);
+	let scrolled = $state(false);
 
 	onMount(() => {
-		const typeEffect = () => {
-			const currentRole = roles[currentRoleIndex];
-			
-			if (!isDeleting) {
-				typedText = currentRole.substring(0, typedText.length + 1);
-				
-				if (typedText === currentRole) {
-					setTimeout(() => { isDeleting = true; }, 2000);
-				}
-			} else {
-				typedText = currentRole.substring(0, typedText.length - 1);
-				
-				if (typedText === '') {
-					isDeleting = false;
-					currentRoleIndex = (currentRoleIndex + 1) % roles.length;
-				}
-			}
-		};
-
-		const interval = setInterval(typeEffect, isDeleting ? 50 : 100);
-		return () => clearInterval(interval);
+		const handleScroll = () => { scrolled = window.scrollY > 50; };
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		return () => window.removeEventListener('scroll', handleScroll);
 	});
 </script>
 
@@ -37,12 +16,10 @@
 			<p class="greeting animate-fade-in">Hello, I'm</p>
 			<h1 class="name animate-fade-in animate-delay-1">Mir Tanim Ahmed</h1>
 			<div class="role-wrapper animate-fade-in animate-delay-2">
-				<span class="role-text">{typedText}</span>
-				<span class="cursor">|</span>
+				<span class="role-text">Backend Engineer</span>
 			</div>
 			<p class="tagline animate-fade-in animate-delay-3">
-				Building scalable backend systems with Node.js, TypeScript & Python. 
-				Exploring ML, NLP, and microservices architecture.
+				Building backend systems and the products around them.
 			</p>
 			<div class="hero-cta animate-fade-in animate-delay-4">
 				<a href="#projects" class="btn btn-primary">
@@ -65,20 +42,24 @@
 				<div class="code-content">
 					<pre><code><span class="keyword">const</span> <span class="var">developer</span> = {'{'}</code>
 <code>  <span class="prop">name</span>: <span class="string">"Mir Tanim Ahmed"</span>,</code>
-<code>  <span class="prop">role</span>: <span class="string">"Backend Developer"</span>,</code>
-<code>  <span class="prop">stack</span>: [<span class="string">"Node.js"</span>, <span class="string">"TypeScript"</span>],</code>
-<code>  <span class="prop">passion</span>: <span class="string">"Building APIs"</span></code>
+<code>  <span class="prop">role</span>: <span class="string">"Backend Engineer"</span>,</code>
+<code>  <span class="prop">languages</span>: [<span class="string">"TypeScript"</span>, <span class="string">"Python"</span>, <span class="string">"C#"</span>],</code>
+<code>  <span class="prop">stack</span>: [<span class="string">"NestJS"</span>, <span class="string">"Express"</span>, <span class="string">"FastAPI"</span>, <span class="string">"ASP.NET Core"</span>],</code>
+<code>  <span class="prop">also</span>: [<span class="string">"Flutter"</span>, <span class="string">"Next.js"</span>, <span class="string">"AI"</span>],</code>
+<code>  <span class="prop">passion</span>: <span class="string">"Building useful things"</span></code>
 <code>{'}'}</code></pre>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="scroll-indicator">
-		<div class="mouse">
-			<div class="wheel"></div>
+	<div class="scroll-indicator" class:hidden={scrolled}>
+		<div class="scroll-inner">
+			<div class="mouse">
+				<div class="wheel"></div>
+			</div>
+			<span>Scroll Down</span>
 		</div>
-		<span>Scroll Down</span>
 	</div>
 </section>
 
@@ -132,14 +113,7 @@
 		-webkit-text-fill-color: transparent;
 	}
 
-	.cursor {
-		font-size: 1.5rem;
-		color: var(--accent-primary);
-		animation: blink 1s infinite;
-		margin-left: 2px;
-	}
-
-	.tagline {
+.tagline {
 		font-size: 1.125rem;
 		color: var(--text-secondary);
 		line-height: 1.7;
@@ -205,6 +179,16 @@
 		bottom: 2rem;
 		left: 50%;
 		transform: translateX(-50%);
+		opacity: 1;
+		transition: opacity 0.4s ease;
+	}
+
+	.scroll-indicator.hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.scroll-inner {
 		display: flex;
 		flex-direction: column;
 		align-items: center;

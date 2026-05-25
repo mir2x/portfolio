@@ -1,18 +1,31 @@
 <script lang="ts">
 	import { projects } from '$lib/data/projects';
-
-	const featured = projects.filter(p => p.featured);
+	import Nav from '$lib/components/Nav.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 </script>
 
-<section id="projects" class="section projects">
+<svelte:head>
+	<title>Projects | Mir Tanim Ahmed</title>
+	<meta name="description" content="All projects by Mir Tanim Ahmed — backend systems, APIs, and full-stack applications." />
+</svelte:head>
+
+<Nav />
+
+<main class="projects-page">
 	<div class="container">
-		<h2 class="section-title">Projects</h2>
-		<p class="section-subtitle">
-			Some of the projects I've built, from full-stack applications to specialized APIs.
-		</p>
+		<div class="page-header">
+			<a href="/#projects" class="back-link">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M19 12H5M12 19l-7-7 7-7"/>
+				</svg>
+				Back
+			</a>
+			<h1 class="section-title">All Projects</h1>
+			<p class="section-subtitle">A full list of things I've built.</p>
+		</div>
 
 		<div class="projects-grid">
-			{#each featured as project}
+			{#each projects as project}
 				<article class="project-card card" class:featured={project.featured}>
 					<div class="project-header">
 						<div class="project-icon">
@@ -52,23 +65,40 @@
 				</article>
 			{/each}
 		</div>
-
-		<div class="more-projects">
-			<a href="/projects" class="btn btn-secondary">
-				See More
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M5 12h14M12 5l7 7-7 7"/>
-				</svg>
-			</a>
-		</div>
 	</div>
-</section>
+</main>
+
+<Footer />
 
 <style>
+	.projects-page {
+		padding-top: 100px;
+		min-height: 100vh;
+	}
+
+	.page-header {
+		margin-bottom: 3rem;
+	}
+
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.9rem;
+		color: var(--text-muted);
+		margin-bottom: 1.5rem;
+		transition: color var(--transition-fast);
+	}
+
+	.back-link:hover {
+		color: var(--accent-primary);
+	}
+
 	.projects-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 		gap: 1.5rem;
+		padding-bottom: 4rem;
 	}
 
 	.project-card {
@@ -136,11 +166,6 @@
 		flex-wrap: wrap;
 		gap: 0.5rem;
 		margin-top: auto;
-	}
-
-	.more-projects {
-		margin-top: 3rem;
-		text-align: center;
 	}
 
 	@media (max-width: 600px) {

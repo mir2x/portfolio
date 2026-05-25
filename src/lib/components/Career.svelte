@@ -1,18 +1,42 @@
 <script lang="ts">
 	const experiences = [
 		{
-			company: 'SparkTech',
-			role: 'Backend & AI Developer',
-			period: '2024 - Present',
-			description: 'Developing scalable backend systems and integrating AI/ML solutions. Working with NLP, chatbots, and RAG architectures.',
-			technologies: ['Node.js', 'TypeScript', 'Python', 'NLP', 'Prisma']
+			company: 'Flexloop',
+			url: 'https://www.flexloop.net/',
+			role: 'Full-Stack Developer',
+			period: 'Nov 2025 – Present',
+			location: 'Remote — Bangladesh',
+			bullets: [
+				'Developing full-stack applications using ASP.NET Core (C#) and Next.js, with SQL Server for relational data modelling, AWS S3 for media storage, and SignalR for real-time WebSocket interactions.',
+				'Reduced video load times by 80% by engineering a server-side FFmpeg transcoding pipeline generating multi-resolution HLS streams with adaptive bitrate quality.'
+			],
+			technologies: ['ASP.NET Core', 'C#', 'Next.js', 'SQL Server', 'SignalR', 'AWS S3', 'FFmpeg']
 		},
 		{
-			company: 'RentYard',
+			company: 'RentYard Inc.',
+			url: 'https://rentyard.com/about',
 			role: 'Backend Developer',
-			period: '2023 - 2024',
-			description: 'Built and maintained RESTful APIs for property rental platform. Designed database schemas and implemented authentication systems.',
-			technologies: ['Node.js', 'Express', 'PostgreSQL', 'Redis']
+			period: 'Mar 2025 – Oct 2025',
+			location: 'Remote — United States',
+			bullets: [
+				'Designed the multi-tenant RESTful API (Node.js/Express/TypeScript) with 50+ endpoints, JWT auth, and RBAC. Built a hybrid search engine (Weaviate vector search, LLM intent extraction, fuzzy matching) achieving 90%+ accuracy.',
+				'Delivered automated Stripe billing workflows, an async task queue (BullMQ + Redis) reducing response times by 5x, and a real-time chat system (Socket.IO).',
+				'Deployed with Docker, CI/CD, and AWS. Recognised as "Best Employee of the Month" (Jul 2025).'
+			],
+			technologies: ['Node.js', 'Express', 'TypeScript', 'PostgreSQL', 'Redis', 'BullMQ', 'Socket.IO', 'Docker', 'AWS', 'Stripe']
+		},
+		{
+			company: 'Sparktech Agency',
+			url: 'https://www.sparktech.agency/',
+			role: 'Backend & DevOps Developer',
+			period: 'Jun 2024 – Mar 2025',
+			location: 'Dhaka, Bangladesh',
+			bullets: [
+				'Built backends (Node.js, ASP.NET Core/C#) powering 6+ client platforms with 100k+ daily API requests. Designed schemas in PostgreSQL and MongoDB, cutting query times by 50%.',
+				'Integrated Stripe Connect for split payments, real-time messaging (Socket.IO/SignalR), and push notifications (Firebase).',
+				'Led DevOps setup (Docker, CI/CD, AWS/DigitalOcean), reducing deployment cycles from hours to minutes.'
+			],
+			technologies: ['Node.js', 'ASP.NET Core', 'C#', 'PostgreSQL', 'MongoDB', 'Socket.IO', 'Firebase', 'Docker', 'AWS']
 		}
 	];
 </script>
@@ -36,12 +60,19 @@
 					<div class="timeline-content card">
 						<div class="timeline-header">
 							<div>
-								<h3 class="company">{exp.company}</h3>
+								<h3 class="company">
+								<a href={exp.url} target="_blank" rel="noopener noreferrer">{exp.company}</a>
+							</h3>
 								<p class="role">{exp.role}</p>
+								<p class="location">{exp.location}</p>
 							</div>
 							<span class="period">{exp.period}</span>
 						</div>
-						<p class="description">{exp.description}</p>
+						<ul class="bullets">
+							{#each exp.bullets as bullet}
+								<li>{bullet}</li>
+							{/each}
+						</ul>
 						<div class="technologies">
 							{#each exp.technologies as tech}
 								<span class="tag">{tech}</span>
@@ -107,10 +138,26 @@
 		color: var(--text-primary);
 	}
 
+	.company a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.company a:hover {
+		color: var(--accent-primary);
+	}
+
 	.role {
 		font-size: 1rem;
 		color: var(--accent-primary);
 		font-weight: 500;
+	}
+
+	.location {
+		font-size: 0.875rem;
+		color: var(--text-muted);
+		font-style: italic;
+		margin-top: 0.2rem;
 	}
 
 	.period {
@@ -122,10 +169,18 @@
 		border-radius: 4px;
 	}
 
-	.description {
+	.bullets {
 		color: var(--text-secondary);
-		margin-bottom: 1rem;
+		margin: 0.75rem 0 1rem 1.1rem;
+		padding: 0;
 		line-height: 1.7;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.bullets li {
+		font-size: 0.95rem;
 	}
 
 	.technologies {

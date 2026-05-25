@@ -21,19 +21,32 @@
 			name: 'Email',
 			url: 'mailto:mir.tanim.ahmed1@gmail.com',
 			icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`
+		},
+		{
+			name: '+880 1921 685616',
+			url: 'tel:+8801921685616',
+			icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`
 		}
 	];
 
-	function handleSubmit(e: Event) {
+	async function handleSubmit(e: Event) {
 		e.preventDefault();
 		status = 'sending';
-		
-		// Simulate form submission (static for now)
-		setTimeout(() => {
+
+		const res = await fetch('/api/contact', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(formData)
+		});
+
+		if (res.ok) {
 			status = 'sent';
 			formData = { name: '', email: '', message: '' };
 			setTimeout(() => { status = 'idle'; }, 3000);
-		}, 1000);
+		} else {
+			status = 'error';
+			setTimeout(() => { status = 'idle'; }, 3000);
+		}
 	}
 </script>
 
@@ -100,11 +113,13 @@
 						placeholder="Your message..."
 					></textarea>
 				</div>
-				<button type="submit" class="btn btn-primary" disabled={status === 'sending'}>
+				<button type="submit" class="btn btn-primary" class:btn-error={status === 'error'} disabled={status === 'sending'}>
 					{#if status === 'sending'}
 						Sending...
 					{:else if status === 'sent'}
 						Message Sent! ✓
+					{:else if status === 'error'}
+						Failed to send. Try again.
 					{:else}
 						Send Message
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -236,6 +251,10 @@
 	.contact-form .btn:disabled {
 		opacity: 0.7;
 		cursor: not-allowed;
+	}
+
+	.btn-error {
+		background: #e53e3e !important;
 	}
 
 	@media (max-width: 768px) {
