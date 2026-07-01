@@ -13,6 +13,7 @@ export type Project = {
 	github?: string;
 	website?: string;
 	playStore?: string;
+	appStore?: string;
 	featured: boolean;
 	logo?: string;
 	star?: Star;
@@ -20,12 +21,45 @@ export type Project = {
 
 export const projects: Project[] = [
 	{
+		slug: 'dentaplus',
+		name: 'DentaPlus',
+		description: 'B2B dental supplies e-commerce platform for Australian dental professionals. Features a NestJS backend, Next.js customer storefront, Next.js internal admin dashboard, custom credit accounts (aging balances), QuickBooks Online syncing (webhooks/CDC), tiered pricing, eWay integration, and BullMQ async queues.',
+		technologies: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL', 'Prisma', 'QuickBooks API', 'BullMQ', 'Redis', 'Jotai', 'Zustand', 'eWay', 'AWS S3', 'Tailwind CSS'],
+		website: 'https://dentaplus-frontend.vercel.app/',
+		featured: true,
+		logo: '/logos/dentaplus.png',
+		star: {
+			situation: 'DentaPlus needed a B2B e-commerce solution for dental clinics, hospitals, and high-volume buyers in Australia. The platform required business-specific features: credit-account application/approval, dynamic tiered pricing, multi-variant products, automated PDF invoicing, statements, QuickBooks syncing, and custom fulfillment workflows.',
+			task: 'I designed and built the entire system end-to-end: a NestJS API server, a customer storefront with Jotai state management in Next.js 16, and an internal admin dashboard with Zustand and TanStack Query in Next.js 16.',
+			actions: [
+				'Architected a NestJS REST API with a PostgreSQL database on Neon via Prisma, utilizing a modular, domain-driven structure (auth, cart, orders, checkout, credit accounts).',
+				'Designed and built a QuickBooks Online sync engine featuring OAuth2 authentication, automated order-to-invoice pushes, and an asynchronous, HMAC-signature-verified webhook listener that updates products, customers, and inventory levels in the local database upon QuickBooks events.',
+				'Implemented a complete B2B credit-based payment workflow, including a credit application form on the storefront, admin approval/rejection panel, automated credit account number (dentaplusId) generation, and 0/30/60/90/120+ days aging balance tracking.',
+				'Configured a nightly scheduler using NestJS Schedule to dynamically recalculate customer aging balances from unpaid invoices and generate monthly PDF account statements.',
+				'Integrated the eWAY Rapid API to process secure credit card payments, tokenizing customers to save payment methods securely (SavedPaymentMethod) for subsequent charges.',
+				'Engineered a guest cart session merging strategy using an X-Session-ID header, automatically merging guest cart items with the customer\'s database cart upon login.',
+				'Developed a WooCommerce import CLI that parsed legacy CSV data to migrate 1,508 products, 4,906 orders, and 1,011 users into the new PostgreSQL schema.',
+				'Created a bulk pricing evaluation engine that dynamically computes tiered volume discounts server-side on cart updates.',
+				'Built custom PDF generation using PDFKit on-demand for invoices, credit notes, and account statements, uploading them automatically to AWS S3 storage.',
+				'Built the client storefront using Next.js 16, using Jotai for auth and cart state persistence (localStorage dp.auth / dp.sessionId), Tailwind CSS v4, and shadcn/ui components.',
+				'Developed the admin dashboard in Next.js 16 with Zustand auth, TanStack Query for caching and data fetching, and Axios interceptors for auth tokens.'
+			],
+			results: [
+				'Successfully built and launched the B2B dental e-commerce system with frontend, backend, admin dashboard, and QuickBooks integration fully integrated.',
+				'Automated the QuickBooks bookkeeping lifecycle by utilizing secure webhook-driven change-data-capture (CDC) updates with HMAC validation, eliminating manual syncs.',
+				'Migrated all legacy WooCommerce history (1,508 products, 4,906 orders, and 1,011 users) to NestJS + Neon PostgreSQL with zero data loss.',
+				'Streamlined the clinic procurement cycle by introducing automated credit applications and net-30/60/90/120+ account aging balance tracking.',
+				'Securely integrated eWAY Token Customer payments, enabling clinic administrators to save payment details and pay invoices online.'
+			]
+		}
+	},
+	{
 		slug: 'petsocial',
 		name: 'PetSocial',
 		description: 'Social networking platform for pet owners — backend, Next.js web app, and admin CMS. HLS video pipeline, SignalR real-time chat/feed, multi-device presence, S3+CloudFront, Docker + CI/CD. Built at Flexloop.',
 		technologies: ['ASP.NET Core', 'C#', 'SQL Server', 'Redis', 'SignalR', 'Next.js', 'TypeScript', 'Flutter', 'Firebase'],
 		website: 'https://web.thepetsocial.net/',
-		playStore: 'https://play.google.com/store/apps/details?id=com.PetCentrals.petsocial&hl=en_SG',
+		playStore: 'https://play.google.com/store/apps/details?id=com.PetCentrals.petsocial&hl=en_SG&pli=1',
 		featured: true,
 		logo: '/logos/petsocial.svg',
 		star: {
@@ -59,6 +93,7 @@ export const projects: Project[] = [
 		technologies: ['Flutter', 'Riverpod', 'ASP.NET Core', 'C#', 'PostgreSQL', 'EF Core', 'AWS S3', 'Firebase', 'Drift', 'just_audio'],
 		website: 'https://islamijindegi.com/',
 		playStore: 'https://play.google.com/store/apps/details?id=com.islami_jindegi&hl=en_SG',
+		appStore: 'https://apps.apple.com/us/app/islami-jindegi/id1271205014',
 		featured: true,
 		logo: '/logos/ij.png',
 		star: {
@@ -91,6 +126,7 @@ export const projects: Project[] = [
 		technologies: ['Node.js', 'TypeScript', 'Express', 'MongoDB', 'Weaviate', 'BullMQ', 'Redis', 'Stripe', 'Socket.IO', 'AWS S3'],
 		website: 'https://rentyard.com/',
 		playStore: 'https://play.google.com/store/apps/details?id=com.rentyard.rentyard&hl=en_SG',
+		appStore: 'https://apps.apple.com/us/app/rentyard/id6747439305',
 		featured: true,
 		logo: '/logos/rentyard.png',
 		star: {
